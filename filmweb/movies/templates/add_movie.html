@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Add new movie{% endblock %}
+
+{% block content %}
+
+<div class="add_and_search_center">
+    <form class="add_movie" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label for="{{ form.title.id_for_label }}"><b>Title: </b></label>
+        {{ form.title }}
+
+        <br><br><label for="{{ form.year.id_for_label }}"><b>Year: </b></label>
+        {{ form.year }}
+
+        <br><br><label for="{{ form.rating.id_for_label }}"><b>Rating:</b></label>
+        {{ form.rating }}
+
+        <br><br><label for="{{ form.genre.id_for_label }}"><b>Genre: </b>
+            (to check more than one condition press Ctrl)</label><br>
+        {{ form.genre }}
+
+        <br><hr align="left" width="170" color="black">
+        <a href="{% url 'add_person' %}"><b>Here you can add movie cast</b></a>
+        <hr align="left" width="170" color="black">
+
+        <br><label for="{{ form.director.id_for_label }}"><b>Director: </b></label>
+        {{ form.director }}
+
+        <br><br><label for="{{ form.screenplay.id_for_label }}"><b>Screenplay:</b></label>
+        {{ form.screenplay }}
+
+        <br><br><label for="{{ form.starring.id_for_label }}"><b>Cast: </b>
+            (to check more than one condition press Ctrl)</label><br>
+        {{ form.starring }}
+
+        <br><br><label for="{{ form.image.id_for_label }}"><b>Poster:</b></label>
+        {{ form.image }}
+
+        <br><br><button type="submit" name="submit" value="person">Enter</button>
+    </form>
+</div>
+
+{% endblock %}

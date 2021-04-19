@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Movies{% endblock %}
+
+{% block content %}
+<br><br>
+<div class="flex_center">
+    {% if object_list %}
+        <table>
+            <th>Title</th>
+            <th>Director</th>
+            <th>Year</th>
+            <th>Rating</th>
+            <th>Genre</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            {% for movie in object_list %}
+                <tr>
+                    <td class="movies">
+                        <a href="{% url 'movie_details' movie.pk %}">"{{ movie.title }}"</a>
+                    </td>
+                    <td class="movies">{{ movie.director }}</td>
+                    <td class="movies" align="center">{{ movie.year }}</td>
+                    <td class="movies" align="center">{{ movie.rating }}
+                        <div class="star-ratings-css" title="{{ movie.rating }}"></div>
+                    </td>
+                    <td>{{ movie.genre.all|join:", " }}</td>
+                    <td class="movies" align="center">
+                        <a href="{% url 'movie_edit' movie.pk %}"><button>_</button></a>
+                    </td>
+                    <td class="movies" align="center">
+                        <a href="{% url 'del_movie' movie.pk %}"><button>_</button></a>
+                    </td>
+                </tr>
+            {% empty %}
+                <h3>No movies with selected params!</h3>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h3>No movies with selected params!</h3>
+    {% endif %}
+</div>
+
+{% endblock %}

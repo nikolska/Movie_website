@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Movies{% endblock %}
+
+{% block content %}
+
+<div class="movies-list">
+    {% if movies %}
+        <table>
+            <th>Poster</th>
+            <th>Title</th>
+            <th>Director</th>
+            <th>Year</th>
+            <th>Rating</th>
+            <th>Genre</th>
+            {% for movie in movies %}
+            <tr>
+                <td class="movies">
+                    <div class="movie-poster-mini">
+                        {% if movie.image %}
+                            <img src="{{ movie.image.url }}"/>
+                        {% endif %}
+                    </div>
+                </td>
+                <td class="movies">
+                    <a href="{% url 'movie_details' movie.pk %}">"{{ movie.title }}"</a>
+                </td>
+                <td class="movies">{{ movie.director }}</td>
+                <td class="movies" align="center">{{ movie.year }}</td>
+                <td class="movies" align="center">{{ movie.rating }}
+                    <div class="star-ratings-css" title="{{ movie.rating }}"></div>
+                </td>
+                <td>{{ movie.genre.all|join:", " }}</td>
+            </tr>
+            {% empty %}
+                <h3>No movies with selected params!</h3>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h3>No movies with selected params!</h3>
+    {% endif %}
+
+    <form action="" method="GET">
+        {% csrf_token %}
+
+        <b>{{ form.title.label }}</b>
+        {{ form.title }}
+
+        <br><br><b>{{ form.cast_name.label }}</b>
+        {{ form.cast_name }}
+
+        <br><br><label for="{{ form.cast_last_name.id_for_label }}"><b>Year: </b></label>
+        {{ form.year_from }}<span> - </span>{{ form.year_to }}
+
+        <br><br><label for="{{ form.cast_last_name.id_for_label }}"><b>Rating: </b></label>
+        {{ form.rating_from }}<span> - </span>{{ form.rating_to }}
+
+        <br><br><b>{{ form.genre.label }}</b>
+        {{ form.genre }}
+
+        <input type="submit" value="Search">
+    </form>
+</div>
+
+{% endblock %}

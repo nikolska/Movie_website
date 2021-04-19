@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{{ person.first_name }} {{ person.last_name }}{% endblock %}
+
+{% block content %}
+
+<div class="person_details_view">
+    <div class="person_details">
+        <h2 align="center">
+            {{ person.first_name }}
+            {{ person.last_name }}
+        </h2>
+        <div class="person_photo">
+            {% if person.image %}
+                <img src="{{ person.image.url }}"/>
+            {% endif %}
+        </div>
+        <h2 align="center">
+            <a href="{% url 'edit_person' person.pk %}"><button><b>Edit</b></button></a>
+            <a href="{% url 'del_person' person.pk %}"><button><b>Delete</b></button></a>
+        </h2>
+    </div>
+    <div class="person_movies">
+        <h3>Movies:</h3>
+        {% if movies %}
+            {% for movie in movies %}
+                <li><a href="{% url 'movie_details' movie.pk %}"><b>{{ movie.title }}</b></a></li>
+            {% endfor %}
+        {% else %}
+            <h4>----------</h4>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

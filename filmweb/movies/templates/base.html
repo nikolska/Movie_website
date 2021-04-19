@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="header">
+    <a class='head_a' href="{% url 'movies_list' %}">Movies</a>
+    <a class='head_a' href="{% url 'stars_list' %}">Stars</a>
+    <a class='head_a' href="{% url 'add_movie' %}">Add new movie</a>
+    <a class='head_a' href="{% url 'add_person' %}">Add new person</a>
+</div>
+
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

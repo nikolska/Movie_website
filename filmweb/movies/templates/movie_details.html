@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+{% block content %}
+<div class="movies_poster">
+    {% if movie.image %}
+        <img src="{{ movie.image.url }}"/>
+    {% endif %}
+</div>
+
+<h1 align="center">"{{ movie.title }}"</h1>
+<h2 align="center">Rating: {{ movie.rating }}
+    <div class="star-ratings-css" title="{{ movie.rating }}"></div>
+</h2>
+
+<div class="movie_details">
+    <div class="movie_table_left">
+        <td>
+            <h2>Genre: {{ movie.genre.all|join:", " }}</h2>
+            <h2>Year: {{ movie.year }}</h2>
+
+            <hr align="left" width="350" color="black">
+
+            <h2>Director:
+                {% for star in stars %}
+                    {% if star.id == movie.director.pk %}
+                        {% if star.image %}
+                            <div class="star_photo">
+                                <ul><img src="{{ star.image.url }}"></ul>
+                                <ul><a href="{% url 'person_details' movie.director.pk %}">
+                                    {{ movie.director }}</a>
+                                </ul>
+                            </div>
+                        {% else %}
+                            <ul><a href="{% url 'person_details' movie.director.pk %}">
+                                {{ movie.director }}</a>
+                            </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </h2>
+
+            <h2>Screenplay:
+                {% for star in stars %}
+                    {% if star.id == movie.screenplay.pk %}
+                        {% if star.image %}
+                            <div class="star_photo">
+                                <ul><img src="{{ star.image.url }}"></ul>
+                                <ul><a href="{% url 'person_details' movie.screenplay.pk %}">
+                                    {{ movie.screenplay }}</a>
+                                </ul>
+                            </div>
+                        {% else %}
+                            <ul><a href="{% url 'person_details' movie.screenplay.pk %}">
+                                {{ movie.screenplay }}</a>
+                            </ul>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </h2>
+
+            <hr align="left" width="350" color="black"><br>
+
+            <button><a href="{% url 'movie_edit' movie.pk %}"><b>Edit movie</b></a></button>
+            <button><a href="{% url 'del_movie' movie.pk %}"><b>Delete movie</b></a></button>
+        </td>
+    </div>
+
+    <div class="movie_table_right">
+        <td>
+            <h2>Cast:
+                {% for star in starring %}
+                    {% for person in stars %}
+                        {% if person.id == star.person.id %}
+                            {% if person.image %}
+                                <div class="star_photo">
+                                    <ul><img src="{{ person.image.url }}"></ul>
+                                    <ul><a href="{% url 'person_details' star.person.pk %}">
+                                        {{ star.person }}</a>
+                                    </ul>
+                                </div>
+                            {% else %}
+                                <ul><a href="{% url 'person_details' star.person.pk %}">
+                                    {{ star.person }}</a>
+                                </ul>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </h2>
+        </td>
+    </div>
+</div>
+
+
+{% endblock %}

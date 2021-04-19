@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Search movie{% endblock %}
+
+{% block content %}
+
+<div class="add_and_search_center">
+    <form action="" method="GET">
+        {% csrf_token %}
+
+        <b>{{ form.title.label }}</b>
+        {{ form.title }}
+
+        <br><br><b>{{ form.cast_first_name.label }}</b>
+        {{ form.cast_first_name }}
+
+        <br><br><b>{{ form.cast_last_name.label }}</b>
+        {{ form.cast_last_name }}
+
+        <br><br><label for="{{ form.cast_last_name.id_for_label }}"><b>Year: </b></label>
+        {{ form.year_from }}<span> - </span>{{ form.year_to }}
+
+        <br><br><label for="{{ form.cast_last_name.id_for_label }}"><b>Rating: </b></label>
+        {{ form.rating_from }}<span> - </span>{{ form.rating_to }}
+
+        <br><br><b>{{ form.genre.label }}</b>
+        {{ form.genre }}
+
+        <br><input type="submit" value="Enter">
+    </form>
+</div>
+
+{% endblock %}

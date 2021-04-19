@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Create a new person{% endblock %}
+
+{% block content %}
+
+<div class="add_and_search_center">
+    <form action='' method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label for="{{ form.first_name.id_for_label }}"><b>First Name: </b></label>
+        {{ form.first_name }}
+        <br><br><label for="{{ form.last_name.id_for_label }}"><b>Last Name: </b></label>
+        {{ form.last_name }}
+        <br><br><label for="{{ form.image.id_for_label }}"><b>Photo:</b></label>
+        {{ form.image }}
+
+        <br><br><button type="submit" name="submit" value="person">Enter</button>
+    </form>
+</div>
+
+{% endblock %}
