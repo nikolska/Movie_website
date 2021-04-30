@@ -90,7 +90,7 @@ class MovieDetailView(DetailView):
         """Insert the object into the context dict"""
 
         movie = get_object_or_404(Movie, pk=self.kwargs['pk'])
-        starring = PersonMovie.objects.filter(movie=movie, role__contains='cast')
+        starring = PersonMovie.objects.filter(movie=movie, role__contains='cast').order_by('person')
         stars = Person.objects.all()
         ctx = super().get_context_data(**kwargs)
         ctx['starring'] = starring
